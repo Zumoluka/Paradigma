@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class Circulo : MonoBehaviour
 {
-    public CanvasManager canvasManager;
+    public TextMeshProUGUI textcirculo;
+    public TextMeshProUGUI textCubito;
     private Animator anim;
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        textCubito.gameObject.SetActive(false);
+        textcirculo.gameObject.SetActive(false);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -20,7 +23,7 @@ public class Circulo : MonoBehaviour
         {
             if (collision.gameObject.name == "Cubito")
             { 
-                collision.gameObject.name = "Circulo";
+                textCubito.gameObject.SetActive(true);
                 Debug.Log("¡Hola Circulo!");
                 if (anim != null)
                 {
@@ -29,7 +32,7 @@ public class Circulo : MonoBehaviour
             }
             else
             {
-                Debug.Log("¡Hola otro objeto!");
+                textcirculo.gameObject.SetActive(true);
                 if (anim != null)
                 {
                     anim.SetTrigger("SaludoAlternativo");
@@ -40,6 +43,7 @@ public class Circulo : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        canvasManager.OcultarCartel();
+        textCubito.gameObject.SetActive(false );
+        textcirculo.gameObject.SetActive(false);
     }
 }

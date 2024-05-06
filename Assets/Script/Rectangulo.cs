@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Rectangulo : MonoBehaviour
 {
-    public CanvasManager canvasManager;
+    public TextMeshProUGUI textRectanculo;
     private Animator anim;
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        textRectanculo.gameObject.SetActive(false);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -17,7 +19,7 @@ public class Rectangulo : MonoBehaviour
         Cubo cubo = collision.GetComponent<Cubo>();
         if (cubo != null)
         {
-            Debug.Log("¡Hola " + collision.gameObject.name + "!");
+            textRectanculo.gameObject.SetActive(true);  
             if (anim != null)
             {
                 anim.SetTrigger("Saludo");
@@ -27,6 +29,6 @@ public class Rectangulo : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        canvasManager.OcultarCartel();
+        textRectanculo.gameObject.SetActive(true);
     }
 }
