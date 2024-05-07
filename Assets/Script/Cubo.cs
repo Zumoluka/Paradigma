@@ -29,7 +29,9 @@ public class Cubo : MonoBehaviour
 
     void Movimiento()
     {
-        float speed_x = Input.GetAxis("Horizontal");
-        transform.Translate(new Vector3(speed_x * velocidad * Time.deltaTime, 0f, 0f));
+        float movimientoHorizontal = Input.GetAxis("Horizontal");
+        float movimientoVertical = Input.GetAxis("Vertical");
+        Vector2 movimiento = new Vector2(movimientoHorizontal, movimientoVertical) * velocidad * Time.deltaTime;
+        transform.Translate(movimiento);
     }
 }

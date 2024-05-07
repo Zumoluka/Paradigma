@@ -16,6 +16,7 @@ public class Rectangulo : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("!");
         Cubo cubo = collision.GetComponent<Cubo>();
         if (cubo != null)
         {
