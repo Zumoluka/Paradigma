@@ -34,4 +34,5 @@ public class Cubo : MonoBehaviour
         Vector2 movimiento = new Vector2(movimientoHorizontal, movimientoVertical) * velocidad * Time.deltaTime;
         transform.Translate(movimiento);
     }
+
 }
