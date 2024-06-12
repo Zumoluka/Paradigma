@@ -5,17 +5,18 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
+    public int DamageAmount = 10;
 
     void Update()
     {
-        // Movimiento lateral del jugador
+
         float moveInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * moveInput * speed * Time.deltaTime);
 
-        // Interactuar con enemigos al presionar la tecla R
+
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5f); // Ajusta el radio según necesites
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5f);
             float minDistance = float.MaxValue;
             GameObject nearestEnemy = null;
             foreach (Collider col in hitColliders)
@@ -26,15 +27,24 @@ public class PlayerController : MonoBehaviour
                     minDistance = distance;
                     nearestEnemy = col.gameObject;
                 }
-            }
-
-            if (nearestEnemy != null)
-            {
-                IPresentation presentation = nearestEnemy.GetComponent<IPresentation>();
-                if (presentation != null)
+                if (col.CompareTag("Enemy"))
                 {
-                    presentation.Action();
+                    ITakeDamage damageReceiver = col.GetComponent<ITakeDamage>();
+                    if (damageReceiver != null)
+                    {
+                        damageReceiver.TakeDamage(DamageAmount);
+                    }
                 }
+
+                if (nearestEnemy != null)
+                {
+                    IPresentation presentation = nearestEnemy.GetComponent<IPresentation>();
+                    if (presentation != null)
+                    {
+                        presentation.Action();
+                    }
+                }
+
             }
         }
     }
